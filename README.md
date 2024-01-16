@@ -1,1 +1,1 @@
-CREATED PERN TODO
+Created a simple todo using PERN stack
