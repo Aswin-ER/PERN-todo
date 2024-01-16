@@ -8,7 +8,8 @@ function App() {
   return (
     <>  
      <HomePage/>
-      <ToastContainer/>
+      <ToastContainer
+      autoClose={3000}/>
     </>
   )
 }

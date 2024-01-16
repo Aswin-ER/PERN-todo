@@ -6,13 +6,17 @@ const Input: FC = () => {
 
     const [description, setDescription] = useState("");
 
+
     const onSubmitForm = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/todos', { description });
             if (response.status === 200) {
-                console.log(response.data);
                 toast.success('New todo Added successfully 🤝')
+                setTimeout(async () => {
+                    location.href = '/'
+                }, 3000)
+
             } else {
                 console.log(response.data);
                 toast.error("Error in Adding todo ⚠️")
@@ -26,10 +30,10 @@ const Input: FC = () => {
 
     return (
         <>
-            <h1>Todo List</h1>
+            <h1 className='text-5xl font-bold'>Todo List</h1>
             <form action="" className='d-flex mt-5' onSubmit={onSubmitForm}>
-                <input type="text" value={description} className='border-4 mx-4' onChange={e => setDescription(e.target.value)} />
-                <button className='btn bg-green-600 p-1' type='submit'>Add</button>
+                <input type="text" value={description} className='border-4 border-black mx-4 w-1/2 p-1' onChange={e => setDescription(e.target.value)} />
+                <button className='btn bg-green-600 p-2 font-bold' type='submit'>Add Todo</button>
             </form>
         </>
     )
