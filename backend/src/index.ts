@@ -1,7 +1,9 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const pool = require('./db');
+import express, { Application, Request, Response } from 'express';
+import cors from 'cors';
+import pool from './db.js';
+
+const app: Application = express();
+
 
 //middleware
 app.use(cors());
@@ -9,7 +11,7 @@ app.use(express.json());
 
 
 //create a todo
-app.post('/todos', async (req, res) => {
+app.post('/todos', async (req: Request, res: Response) => {
     try {
         const { description } = req.body;
         const newTodo = await pool.query(
@@ -25,7 +27,7 @@ app.post('/todos', async (req, res) => {
 
 
 //View all the todos
-app.get('/viewtodos', async (req, res) => {
+app.get('/viewtodos', async (req: Request, res: Response) => {
     try {
         const viewtodos = await pool.query('SELECT * FROM todo');
         res.json(viewtodos.rows);
@@ -36,7 +38,7 @@ app.get('/viewtodos', async (req, res) => {
 
 
 //Get specific todo
-app.get('/gettodos/:id', async (req, res) => {
+app.get('/gettodos/:id', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const gettodos = await pool.query('SELECT * FROM todo WHERE todo_id = $1', [id]);
@@ -48,7 +50,7 @@ app.get('/gettodos/:id', async (req, res) => {
 })
 
 //update a specific todo
-app.put('/updatetodos/:id', async (req, res) => {
+app.put('/updatetodos/:id', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const { description } = req.body;
@@ -61,7 +63,7 @@ app.put('/updatetodos/:id', async (req, res) => {
 })
 
 //Delete a specific todo
-app.delete('/deletetodos/:id', async (req, res) => {
+app.delete('/deletetodos/:id', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const deletetodos = await pool.query('DELETE FROM todo WHERE todo_id = $1', [id]);
